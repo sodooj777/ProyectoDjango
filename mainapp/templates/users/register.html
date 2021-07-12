@@ -1,0 +1,26 @@
+{% extends 'layouts/layout.html' %} <!--con extends entramos a miaap en concreto  y tengo que colocar que templates vamos a cargar-->
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block content %}
+    <h1>{{title}}</h1>
+
+    {{register_form.errors}}
+
+    <form method="post" action="">
+          {% csrf_token %}
+
+         {% comment "" %}
+          {{register_form.as_p}}
+         {% endcomment %}
+
+         {% for field in register_form %} <!--es una lista de campos que puedo mostrar con register_form-->
+                <label>{{field.label}}</label><!--aqui podemos imprimir el label de ese for la etiquetita del texto-->
+                {{field}}
+         {% endfor %}
+
+          <input type="submit" value="Registrarse"/> 
+    </form>
+    
+{% endblock %}

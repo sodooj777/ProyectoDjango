@@ -1,0 +1,40 @@
+{% for article in articles %}
+            <article class="article-item">
+
+                {% if article.image != 'null' and article.image.url|length >= 1 %} <!-- comprobamos si es diferente a null y si la url es mayor o igual a 1 por q eso significaria q tenemos una cantidad de caracteres dentro residentemente grande   -->
+                           
+                    <div class="image">
+                        <img src="{{article.image.url}}" /> <!--para cargar la url real tendria que colocar .url-->
+                    </div>
+                {% endif %}
+
+                <div class="data">
+                    <h2>
+                        <a href="{% url 'article' article.id %}">
+                          {{article.title}}
+                        </a>
+                    </h2>
+                    <p>
+                        {% for category in article.Categories.all %}<!--aqui tengo todo el listado vinculada a ese articulo y . all es lo me va sacar realmente todas las categorias-->
+                            <a href="{% url 'category' category.id %}">{{category.name}}</a>
+
+                            {% if forloop.counter < article.Categories.all|length %} <!--asi sacamos el indice del numero que se esta recoriendo ahora comprobamos que el contador es menor al numero total de categorias -->
+                               {{'-'}} <!--para q el guion separa las category con un guion -->
+                            {% endif %}
+                        
+                        {% endfor %}
+                    </p>
+                    <span class="date">
+                        {{article.user.first_name}} {{article.user.last_name}}<!--mostramos elnombre usuario y apellido la tabla de base de datos -->
+                        |
+                        {{article.created_at}}
+                    <span> <!--descomentar si tiene el metodo filter()-->
+                    <p>
+                        {{article.content|safe}}
+                    </p>
+                            <!-- cargamos la url por el name borrar  y en este caso se va a borrar id cargamos -->
+                </div>
+
+                <div class="clearfix"></div>
+            </article>
+        {%endfor%} 

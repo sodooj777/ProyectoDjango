@@ -1,0 +1,21 @@
+{% extends 'layouts/layout.html' %} <!--con extends entramos a miaap en concreto  y tengo que colocar que templates vamos a cargar-->
+
+{% block title %} {{article.title}} {% endblock %}
+
+
+{% block content %}
+
+    {% if article.image != 'null' and article.image.url|length >= 1 %} <!-- comprobamos si es diferente a null y si la url es mayor o igual a 1 por q eso significaria q tenemos una cantidad de caracteres dentro residentemente grande   -->
+                           
+            <div class="image">
+                <img src="{{article.image.url}}" /> <!--para cargar la url real tendria que colocar .url-->
+            </div>
+        {% endif %}
+                
+    <h1 class="title">{{article.title}}</h1>
+    <span class="date">{{article.created_at}}</span> <!-- le pasamos page.creates_at la pasamos la views page y heradamos de la base de datos page.created_at -->
+    <p class="content">
+        {{article.content|safe}}<!--este filtro la que va hacer es  en page.content lo va intrepertar como html y no como texto plano-->
+    </p>
+    
+{% endblock %}

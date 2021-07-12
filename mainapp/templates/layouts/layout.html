@@ -1,0 +1,92 @@
+
+{% load  static %}<!--esto me va a cargar el fichero estatico osea la carpeta static-->
+
+
+<!DOCTYPE html> <!--layout.html va hacer sobre el cual se va estar cargando todas mi templates-->
+<html lang="es">    
+<head>  <!-- creamos el bloque title q va a ser sustituido--> <!-- block title  aqui dentro de el bloque va titulo de cada pagina  endblock  -->
+        <!-- cierre del bloque-->
+      <meta charset ="utf-8" />
+      <title>
+            
+        {% block title %} 
+
+        {% endblock %}    
+        | Sitio web con django
+      
+      </title>
+      <link rel="stylesheet" type="text/css" href={% static 'css/styles.css' %} /> <!--se utiliza los ficheros estaticos ingresamos por defecto en la carpeta static -->
+</head>
+<body>
+
+    <!--Cabecera de la pagina-->
+
+    <header>
+              <div id="logotipo">
+                 <!--logo de Django-->
+               <img src="{% static 'imagenes/logo.png'%}" />  
+               <h1>Proyecto con Django</h1>  
+              </div>
+    </header> 
+   <nav>
+      <ul>
+         <li>
+            <a href="{% url 'index' %}">Inicio</a>  <!-- tienes que  escribir la ruta exacta para que te redireccione a la ruta correcta url  -->
+         </li>
+         {% if user.email %} <!--comprobamos si user.email existe -->
+            <li>
+               <a href="{% url 'list_articles' %}">Categorias</a>  <!-- tienes que  escribir la ruta exacta para que te redireccione a la ruta correcta url  -->
+               <ul>
+               {% for category in categories %}
+                     <li>
+                        <a href="{% url 'category' category.0 %}">{{category.1}}</a>  <!-- category.1 va a mostrar el nombre de la categoria  -->
+                     </li>
+               {% endfor %}  
+               </ul>
+            </li> 
+            {% for page in pages %}
+               <li> <!--page.2  dentro de esta tupla  en la posicion 0 tenemos el id  en la posicion 1 el nombre y en la posi 2 tenemos el slug-->
+                  <a href="{% url 'page' page.2 %}">{{page.1}}</a> <!--cargamos la url por los name de las url  en le pasamos por parametro page.2 que sea el slug la posision del del modelo-->
+               </li> 
+            {% endfor %}
+             
+            <li>
+               <a href="{% url 'logout' %}">Cerrar sesión</a>  <!-- tienes que  escribir la ruta exacta para que te redireccione a la ruta correcta url  -->
+            </li>
+
+         {% else %}
+            <li>
+               <a href="{% url 'register' %}">Registro</a>  <!-- tienes que  escribir la ruta exacta para que te redireccione a la ruta correcta url  -->
+            </li>
+            <li>
+               <a href="{% url 'login' %}">Login</a>  <!-- tienes que  escribir la ruta exacta para que te redireccione a la ruta correcta url  -->
+            </li>
+         {% endif %}   
+      </ul>
+   </nav>
+   <div class="barra">
+     <span class="esquina-izquierda"></span>
+     <span class="relleno-barra"></span>
+     <span class="esquina-derecha"></span>
+   </div>
+   <div id="content">
+      
+      <div class="box">
+      {{ids}}
+         
+         {% block content %}
+               <!-- aqui va codigo que viene de templates-->
+               <strong>Contenido del bloque original!!!</strong>
+         {% endblock %}
+     </div>
+
+        
+   
+   </div>
+
+   <footer>
+     
+       Master en Python &copy; osmel cañas web - {% now  "d/m/Y h:m:s"  %} <!--la funcion now trae mi django  nesesita parametros esta es la fecha que viene del servidor-->
+   </footer>  
+</body>
+</html>

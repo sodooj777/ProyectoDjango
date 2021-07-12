@@ -1,0 +1,12 @@
+{% extends 'layouts/layout.html' %} <!--con extends entramos a miaap en concreto  y tengo que colocar que templates vamos a cargar-->
+
+{% block title %}{{category.name}}{% endblock %}
+
+
+{% block content %}
+    <h1 class="title">{{category.name}}</h1>
+    <p>{{category.description}}</p>
+    
+    {% include 'articles/articles.html'  with articles=category.article_set.all %} <!--el objeto de category lo tengo relacionado con el objeto articulo es decir la categoria tiene en el fondo una relacion inversa con el articulo de forma que si yo accedo a una categoria puedo sacar usando article_set.all puedo sacar todos los articulos que apuntan o tienen una relacion con la categoria en concreto-->
+    <!--aqui le pasamos la variable articles a la vista articles.html  con el listado de articulos con los que yo quiero sacar y directamente usando el objecto de cartegoria ya tengo dentro toda los articulos que esten vinculado usando _set.all para sacar todos  -->
+{% endblock %}

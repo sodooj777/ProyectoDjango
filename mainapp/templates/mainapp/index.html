@@ -1,0 +1,27 @@
+{% extends 'layouts/layout.html' %} <!--con extends entramos a miaap en concreto  y tengo que colocar que templates vamos a cargar-->
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block content %}
+    <h1>{{title}}</h1>
+    <hr/>
+    {% if messages %}    <!--comprobamos si existe el message flas-->
+        {% for message in messages %} <!--recorremos el message flas-->
+             <div class="alert alert-success">
+                  {{message}}  <!--mostramos el message flas-->
+             </div>        
+        {% endfor %}
+    {% endif %}
+
+    {% if user.email %} <!--comprobamos si user.email existe -->
+        <h2>Bienvenido {{request.user.first_name}} {{user.last_name}}</h2> <!--no es nombre de usuario sino como tal pero se puede mostrar-->
+        <!--user.last_name accedemos al apellido-->
+        <p>
+        {{user.email}}    
+        </p>
+    {% else %}    
+        <h2>Identificate para ver mas cosas</h2> 
+    {% endif %}
+    
+{% endblock %}

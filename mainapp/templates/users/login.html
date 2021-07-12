@@ -1,0 +1,30 @@
+{% extends 'layouts/layout.html' %} <!--con extends entramos a miaap en concreto  y tengo que colocar que templates vamos a cargar-->
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block content %}
+    <h1>{{title}}</h1>
+
+    {% if messages %}    <!--comprobamos si existe el message flas-->
+        {% for message in messages %} <!--recorremos el message flas-->
+             <div class="alert alert-warning">
+                  {{message}}  <!--mostramos el message flas-->
+             </div>        
+        {% endfor %}
+    {% endif %}
+
+    {{register_form.errors}}
+
+    <form method="post" action="">
+          {% csrf_token %}
+
+          <label for="username">Nombre de usuario:</label>
+          <input type="text" name="username" />
+          <label for="password">Contraseña :</label>
+          <input type="password" name="password" /> 
+
+          <input type="submit" value="Login"/> 
+    </form>
+    
+{% endblock %}

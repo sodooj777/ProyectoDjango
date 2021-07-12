@@ -1,0 +1,19 @@
+<div class="pagination">
+    {% if articles.has_previous %} <!-- esto me va comprobar si tengo que imprimir el botton de anterior o no-->
+        <a href="?page=1">&laquo; Primero</a> <!--&laquo; este singo es una flechita a la derecha  y quiero que me lleve a la pagina 1 en el caso de que no tenga ningun articulo preevio es decir este es la pagina 0 por ejemplo-->
+        <a href="?page={{articles.previous_page_number}}"> <!--el parametro page igual a numero de la pagina-->
+        Anterior
+        </a>
+    {% endif %}  
+
+    <span class="actual">
+       Pagina {{articles.number}}  de {{articles.paginator.num_pages}} <!--asi se saca el numero de la pagina actual articles.number y el numero total de pagina es {{articles.paginator.num_pages}} -->
+    </span>
+
+    {% if articles.has_next %} <!-- esto me va comprobar si existe una siguiente pagina-->
+        <a href="?page={{articles.next_page_number}}"> <!--el parametro page al darle clic lo va a llevar a la siguiente pagina-->
+            Siguiente
+        </a>
+        <a href="?page={{articles.paginator.num_pages}}">Ultima &raquo;</a> <!--{{articles.paginator.num_pages}} esto me va a llevar a la Ultima pagina-->
+    {% endif %}   
+</div>
